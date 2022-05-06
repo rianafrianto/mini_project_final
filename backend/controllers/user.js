@@ -13,6 +13,7 @@ const { generateToken } = require("../helpers/tokens");
 const { sendVerificationEmail, sendResetCode } = require("../helpers/mailer");
 const generateCode = require("../helpers/generateCode");
 const mongoose = require("mongoose");
+
 exports.register = async (req, res) => {
   try {
     const {
@@ -50,9 +51,9 @@ exports.register = async (req, res) => {
         message: "last name must between 3 and 30 characters.",
       });
     }
-    if (!validateLength(password, 6, 40)) {
+    if (!validateLength(password, 8, 40)) {
       return res.status(400).json({
-        message: "password must be atleast 6 characters.",
+        message: "password must be atleast 8 characters.",
       });
     }
 
@@ -75,6 +76,7 @@ exports.register = async (req, res) => {
       { id: user._id.toString() },
       "30m"
     );
+
     const url = `${process.env.BASE_URL}/activate/${emailVerificationToken}`;
     sendVerificationEmail(user.email, user.first_name, url);
     const token = generateToken({ id: user._id.toString() }, "7d");
@@ -92,6 +94,7 @@ exports.register = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 exports.activateAccount = async (req, res) => {
   try {
     const validUser = req.user.id;
@@ -118,6 +121,7 @@ exports.activateAccount = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -125,13 +129,13 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(400).json({
         message:
-          "the email address you entered is not connected to an account.",
+          "The email address you entered is not connected to an account.",
       });
     }
     const check = await bcrypt.compare(password, user.password);
     if (!check) {
       return res.status(400).json({
-        message: "Invalid credentials.Please try again.",
+        message: "Invalid Password.Please try again.",
       });
     }
     const token = generateToken({ id: user._id.toString() }, "7d");
@@ -148,6 +152,7 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 exports.sendVerification = async (req, res) => {
   try {
     const id = req.user.id;
@@ -170,6 +175,7 @@ exports.sendVerification = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 exports.findUser = async (req, res) => {
   try {
     const { email } = req.body;
@@ -343,7 +349,7 @@ exports.addFriend = async (req, res) => {
         await sender.updateOne({
           $push: { following: receiver._id },
         });
-        res.json({ message: "friend request has been sent" });
+        res.json({ message: "Friend request has been sent" });
       } else {
         return res.status(400).json({ message: "Already sent" });
       }
@@ -374,7 +380,7 @@ exports.cancelRequest = async (req, res) => {
         await sender.updateOne({
           $pull: { following: sender._id },
         });
-        res.json({ message: "you successfully canceled request" });
+        res.json({ message: "You successfully canceled request" });
       } else {
         return res.status(400).json({ message: "Already Canceled" });
       }
@@ -403,7 +409,7 @@ exports.follow = async (req, res) => {
         await sender.updateOne({
           $push: { following: receiver._id },
         });
-        res.json({ message: "follow success" });
+        res.json({ message: "Follow success" });
       } else {
         return res.status(400).json({ message: "Already following" });
       }
@@ -430,7 +436,7 @@ exports.unfollow = async (req, res) => {
         await sender.updateOne({
           $pull: { following: receiver._id },
         });
-        res.json({ message: "unfollow success" });
+        res.json({ message: "Unfollow success" });
       } else {
         return res.status(400).json({ message: "Already not following" });
       }
@@ -456,7 +462,7 @@ exports.acceptRequest = async (req, res) => {
         await receiver.updateOne({
           $pull: { requests: sender._id },
         });
-        res.json({ message: "friend request accepted" });
+        res.json({ message: "Friend request accepted" });
       } else {
         return res.status(400).json({ message: "Already friends" });
       }
@@ -493,7 +499,7 @@ exports.unfriend = async (req, res) => {
           },
         });
 
-        res.json({ message: "unfriend request accepted" });
+        res.json({ message: "Unfriend request accepted" });
       } else {
         return res.status(400).json({ message: "Already not friends" });
       }
@@ -522,7 +528,7 @@ exports.deleteRequest = async (req, res) => {
           },
         });
 
-        res.json({ message: "delete request accepted" });
+        res.json({ message: "Delete request accepted" });
       } else {
         return res.status(400).json({ message: "Already deleted" });
       }

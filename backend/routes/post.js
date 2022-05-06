@@ -6,6 +6,7 @@ const {
   savePost,
   deletePost,
 } = require("../controllers/post");
+
 const { authUser } = require("../middlwares/auth");
 
 const router = express.Router();

@@ -14,6 +14,7 @@ app.use(
     useTempFiles: true,
   })
 );
+
 //routes
 readdirSync("./routes").map((r) => app.use("/", require("./routes/" + r)));
 
@@ -27,5 +28,5 @@ mongoose
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`server is running on port ${PORT}..`);
+  console.log(`server is running on port ${PORT}`);
 });

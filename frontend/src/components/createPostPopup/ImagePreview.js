@@ -17,12 +17,13 @@ export default function ImagePreview({
       console.log(img);
       if (
         img.type !== "image/jpeg" &&
+        img.type !== "image/jpg" &&
         img.type !== "image/png" &&
         img.type !== "image/webp" &&
         img.type !== "image/gif"
       ) {
         setError(
-          `${img.name} format is unsupported ! only Jpeg, Png, Webp, Gif are allowed.`
+          `${img.name} format is unsupported ! only Jpeg, Jpg, Png, Webp, Gif are allowed.`
         );
         files = files.filter((item) => item.name !== img.name);
         return;
@@ -45,7 +46,7 @@ export default function ImagePreview({
       <div className="add_pics_wrap">
         <input
           type="file"
-          accept="image/jpeg,image/png,image/webp,image/gif"
+          accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
           multiple
           hidden
           ref={imageInputRef}
@@ -122,13 +123,6 @@ export default function ImagePreview({
             </div>
           </div>
         )}
-        <div className="add_pics_inside2">
-          <div className="add_circle">
-            <i className="phone_icon"></i>
-          </div>
-          <div className="mobile_text">Add phots from your mobile device.</div>
-          <span className="addphone_btn">Add</span>
-        </div>
       </div>
     </div>
   );

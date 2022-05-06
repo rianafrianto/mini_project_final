@@ -23,15 +23,15 @@ export default function SendVerification({ user }) {
   return (
     <div className="send_verification">
       <span>
-        Your account is not verified,verify your account before it gets deleted
-        after a month from creating.
+        Please check your email to verify account, if you dont have link
+        verification, click link below to resend.
       </span>
       <a
         onClick={() => {
           sendVerificationLink();
         }}
       >
-        click here to resend verification link
+        Click here to resend verification link
       </a>
       {success && <div className="success_text">{success}</div>}
       {error && <div className="error_text">{error}</div>}
