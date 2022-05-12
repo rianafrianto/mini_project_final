@@ -10,7 +10,6 @@ import ProfielPictureInfos from "./ProfielPictureInfos";
 import ProfileMenu from "./ProfileMenu";
 import PplYouMayKnow from "./PplYouMayKnow";
 import CreatePost from "../../components/createPost";
-import GridPosts from "./GridPosts";
 import Post from "../../components/post";
 import Photos from "./Photos";
 import Friends from "./Friends";
@@ -308,7 +307,6 @@ export default function Profile({ getAllPosts }) {
                 {!visitor && (
                   <CreatePost user={user} profile setVisible={setVisible} />
                 )}
-                <GridPosts />
                 {loading ? (
                   <div className="sekelton_loader">
                     <HashLoader color="#1876f2" />

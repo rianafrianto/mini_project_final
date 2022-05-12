@@ -5,7 +5,7 @@ const { ObjectId } = mongoose.Schema;
 const reactSchema = new mongoose.Schema({
   react: {
     type: String,
-    enum: ["like", "love", "haha", "sad", "angry", "wow"],
+    enum: ["like"],
     required: true,
   },
   postRef: {

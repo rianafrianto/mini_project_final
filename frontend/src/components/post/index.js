@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./style.css";
-import Moment from "react-moment";
 import { Dots, Public } from "../../svg";
 import ReactsPopup from "./ReactsPopup";
 import { useEffect, useRef, useState } from "react";
@@ -8,6 +7,7 @@ import CreateComment from "./CreateComment";
 import PostMenu from "./PostMenu";
 import { comment, getReacts, reactPost } from "../../functions/post";
 import Comment from "./Comment";
+import moment from "moment";
 export default function Post({ post, user, profile }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -88,10 +88,7 @@ export default function Post({ post, user, profile }) {
               </div>
             </div>
             <div className="post_profile_privacy_date">
-              <Moment fromNow interval={30}>
-                {post.createdAt}
-              </Moment>
-              . <Public color="#828387" />
+              {moment(post.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a")}
             </div>
           </div>
         </Link>
@@ -215,21 +212,7 @@ export default function Post({ post, user, profile }) {
             style={{
               color: `
           
-          ${
-            check === "like"
-              ? "#4267b2"
-              : check === "love"
-              ? "#f63459"
-              : check === "haha"
-              ? "#f7b125"
-              : check === "sad"
-              ? "#f7b125"
-              : check === "wow"
-              ? "#f7b125"
-              : check === "angry"
-              ? "#e4605a"
-              : ""
-          }
+          ${check === "like" ? "#4267b2" : ""}
           `,
             }}
           >

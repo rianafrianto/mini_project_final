@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
-import useOnClickOutside from "../../helpers/clickOutside";
-import { photosReducer } from "../../functions/reducers";
+// import useOnClickOutside from "../../helpers/clickOutside";
+// import { photosReducer } from "../../functions/reducers";
 import { useSelector } from "react-redux";
 export default function ProfilePicture({ username, setShow, pRef, photos }) {
   const popup = useRef(null);
@@ -58,10 +58,10 @@ export default function ProfilePicture({ username, setShow, pRef, photos }) {
               <i className="plus_icon filter_blue"></i>
               Upload photo
             </button>
-            <button className="gray_btn">
+            {/* <button className="gray_btn">
               <i className="frame_icon"></i>
               Add frame
-            </button>
+            </button> */}
           </div>
         </div>
         {error && (
@@ -88,7 +88,7 @@ export default function ProfilePicture({ username, setShow, pRef, photos }) {
                 />
               ))}
           </div>
-          <h4>other pictures</h4>
+          {/* <h4>other pictures</h4>
           <div className="old_pictures">
             {photos
               .filter(
@@ -102,7 +102,7 @@ export default function ProfilePicture({ username, setShow, pRef, photos }) {
                   onClick={() => setImage(photo.secure_url)}
                 />
               ))}
-          </div>
+          </div> */}
         </div>
       </div>
       {image && (

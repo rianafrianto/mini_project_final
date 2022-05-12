@@ -113,14 +113,14 @@ export default function UpdateProfilePicture({
         </div>
         <span>Update profile picture</span>
       </div>
-      <div className="update_image_desc">
+      {/* <div className="update_image_desc">
         <textarea
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className="textarea_blue details_input"
         ></textarea>
-      </div>
+      </div> */}
 
       <div className="update_center">
         <div className="crooper">
@@ -162,10 +162,10 @@ export default function UpdateProfilePicture({
           <i className="temp_icon"></i>Make Temporary
         </div>
       </div>
-      <div className="flex_p_t">
+      {/* <div className="flex_p_t">
         <i className="public_icon"></i>
         Your profile picture is public
-      </div>
+      </div> */}
       <div className="update_submit_wrap">
         <div className="blue_link" onClick={() => setImage("")}>
           Cancel

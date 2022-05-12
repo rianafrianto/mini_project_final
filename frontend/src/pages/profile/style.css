@@ -157,6 +157,7 @@
   color: var(--blue-color) !important;
   border-bottom: 3px solid var(--blue-color);
   border-radius: 0 !important;
+  cursor: pointer;
 }
 .p10_dots {
   background: var(--bg-third);

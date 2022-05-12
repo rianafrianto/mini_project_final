@@ -7,11 +7,8 @@ import {
   Gaming,
   Home,
   HomeActive,
-  Logo,
   Market,
   Menu,
-  Messenger,
-  Notifications,
   Search,
   Watch,
 } from "../../svg";
@@ -81,7 +78,6 @@ export default function Header({ page, getAllPosts }) {
         </Link>
         <Link to="/" className="middle_icon hover1">
           <Watch color={color} />
-          <div className="middle_notification">9+</div>
         </Link>
         <Link to="/" className="middle_icon hover1">
           <Market color={color} />
@@ -116,13 +112,7 @@ export default function Header({ page, getAllPosts }) {
 
           {showAllMenu && <AllMenu />}
         </div>
-        <div className="circle_icon hover1">
-          <Messenger />
-        </div>
-        <div className="circle_icon hover1">
-          <Notifications />
-          <div className="right_notification">5</div>
-        </div>
+
         <div
           className={`circle_icon hover1 ${showUserMenu && "active_header"}`}
           ref={usermenu}
@@ -136,7 +126,6 @@ export default function Header({ page, getAllPosts }) {
               <ArrowDown />
             </div>
           </div>
-
           {showUserMenu && <UserMenu user={user} />}
         </div>
       </div>
