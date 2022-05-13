@@ -8,6 +8,10 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { Icon } from "react-icons-kit";
+import { eye } from "react-icons-kit/feather/eye";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
+
 const loginInfos = {
   email: "",
   password: "",
@@ -48,6 +52,18 @@ export default function LoginForm({ setVisible }) {
       setError(error.response.data.message);
     }
   };
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(eyeOff);
+  const handleToggle = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
+
   return (
     <div className="login_wrap">
       <div className="login_1">
@@ -76,13 +92,22 @@ export default function LoginForm({ setVisible }) {
                   placeholder="Email address or phone number"
                   onChange={handleLoginChange}
                 />
-                <LoginInput
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  onChange={handleLoginChange}
-                  bottom
-                />
+                <div style={{ position: "relative" }}>
+                  <LoginInput
+                    type={type}
+                    name="password"
+                    placeholder="Password"
+                    onChange={handleLoginChange}
+                    bottom
+                  />
+                  <span
+                    className="eye"
+                    onClick={handleToggle}
+                    style={{ position: "absolute", top: "10px", right: "15px" }}
+                  >
+                    <Icon icon={icon} size={20} />
+                  </span>
+                </div>
                 <button type="submit" className="blue_btn">
                   Log In
                 </button>

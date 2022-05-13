@@ -9,6 +9,9 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { Icon } from "react-icons-kit";
+import { eye } from "react-icons-kit/feather/eye";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
 export default function RegisterForm({ setVisible }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -103,6 +106,17 @@ export default function RegisterForm({ setVisible }) {
       setError(error.response.data.message);
     }
   };
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(eyeOff);
+  const handleToggle = () => {
+    if (type === "password") {
+      setIcon(eye);
+      setType("text");
+    } else {
+      setIcon(eyeOff);
+      setType("password");
+    }
+  };
   return (
     <div className="blur">
       <div className="register">
@@ -173,13 +187,20 @@ export default function RegisterForm({ setVisible }) {
                   onChange={handleRegisterChange}
                 />
               </div>
-              <div className="reg_line">
+              <div className="reg_line" style={{ position: "relative" }}>
                 <RegisterInput
-                  type="password"
+                  type={type}
                   placeholder="New password"
                   name="password"
                   onChange={handleRegisterChange}
                 />
+                <span
+                  className="eye"
+                  onClick={handleToggle}
+                  style={{ position: "absolute", top: "20px", right: "15px" }}
+                >
+                  <Icon icon={icon} size={20} />
+                </span>
               </div>
               <div className="reg_col">
                 <div className="reg_line_header">
