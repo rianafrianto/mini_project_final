@@ -25,9 +25,9 @@ export default function CreatePostPopup({
   const [error, setError] = useState("");
   const [images, setImages] = useState([]);
   const [background, setBackground] = useState("");
-  useClickOutside(popup, () => {
-    setVisible(false);
-  });
+  // useClickOutside(popup, () => {
+  //   setVisible(false);
+  // });
   const postSubmit = async () => {
     if (background) {
       setLoading(true);
@@ -112,7 +112,7 @@ export default function CreatePostPopup({
   };
   return (
     <div className="blur">
-      <div className="postBox" ref={popup}>
+      <div className="postBox scrollbar" ref={popup}>
         {error && <PostError error={error} setError={setError} />}
         <div className="box_header">
           <div

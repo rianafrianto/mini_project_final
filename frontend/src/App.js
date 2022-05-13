@@ -12,10 +12,11 @@ import { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { postsReducer } from "./functions/reducers";
 import Friends from "./pages/friends";
+import NotFound from "./pages/NotFound/NotFound.js";
 
 function App() {
   const [visible, setVisible] = useState(false);
-  const { user, darkTheme } = useSelector((state) => ({ ...state }));
+  const { user } = useSelector((state) => ({ ...state }));
   const [{ loading, error, posts }, dispatch] = useReducer(postsReducer, {
     loading: false,
     posts: [],
@@ -49,7 +50,7 @@ function App() {
     }
   };
   return (
-    <div className={darkTheme && "dark"}>
+    <div>
       {visible && (
         <CreatePostPopup
           user={user}
@@ -101,11 +102,13 @@ function App() {
             exact
           />
           <Route path="/activate/:token" element={<Activate />} exact />
+          <Route path="*" element={<NotFound />} exact />
         </Route>
         <Route element={<NotLoggedInRoutes />}>
           <Route path="/login" element={<Login />} exact />
+          <Route path="/reset" element={<Reset />} exact />
         </Route>
-        <Route path="/reset" element={<Reset />} />
+        <Route path="*" element={<NotFound />} exact />
       </Routes>
     </div>
   );

@@ -9,6 +9,9 @@
   min-height: 228px;
   width: 500px;
   border-radius: 5px;
+  overflow-y: scroll;
+  max-height: 500px;
+  margin-top: 25px;
 }
 .box_header {
   position: relative;
@@ -19,6 +22,7 @@
   font-weight: 700;
   padding: 14px 15px 17px 15px;
   border-bottom: 1px solid var(--bg-third);
+  scroll-behavior: smooth;
 }
 .box_header span {
   color: var(--color-primary);
