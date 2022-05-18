@@ -1,5 +1,7 @@
 const fs = require("fs");
 
+// --> Validation Images Types <--- //
+
 module.exports = async function (req, res, next) {
   try {
     if (!req.files || Object.values(req.files).flat().length === 0) {

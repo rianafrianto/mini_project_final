@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import ProfilePicture from "../../components/profielPicture";
 import Friendship from "./Friendship";
 import { Link } from "react-router-dom";
+
 export default function ProfielPictureInfos({
   profile,
   visitor,

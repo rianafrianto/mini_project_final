@@ -1,4 +1,4 @@
-import Moment from "react-moment";
+import moment from "moment";
 
 export default function Comment({ comment }) {
   return (
@@ -18,9 +18,7 @@ export default function Comment({ comment }) {
           <span>Like</span>
           <span>Reply</span>
           <span>
-            <Moment fromNow interval={30}>
-              {comment.commentAt}
-            </Moment>
+            {moment(comment.commentAt).format("dddd, MMMM Do YYYY, h:mm:ss a")}
           </span>
         </div>
       </div>

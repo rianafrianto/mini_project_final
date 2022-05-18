@@ -8,6 +8,14 @@ import PostMenu from "./PostMenu";
 import { comment, getReacts, reactPost } from "../../functions/post";
 import Comment from "./Comment";
 import moment from "moment";
+import { FacebookIcon, TwitterIcon, WhatsappIcon } from "react-share";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 export default function Post({ post, user, profile }) {
   const [visible, setVisible] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -17,6 +25,7 @@ export default function Post({ post, user, profile }) {
   const [count, setCount] = useState(1);
   const [checkSaved, setCheckSaved] = useState();
   const [comments, setComments] = useState([]);
+  const [hasMore, setHasMore] = useState(false);
   useEffect(() => {
     getPostReacts();
   }, [post]);
@@ -175,7 +184,7 @@ export default function Post({ post, user, profile }) {
         </div>
         <div className="to_right">
           <div className="comments_count">{comments.length} comments</div>
-          <div className="share_count">0 share</div>
+          {/* <div className="share_count">0 share</div> */}
         </div>
       </div>
       <div className="post_actions">
@@ -223,9 +232,29 @@ export default function Post({ post, user, profile }) {
           <i className="comment_icon"></i>
           <span>Comment</span>
         </div>
+
         <div className="post_action hover1">
-          <i className="share_icon"></i>
-          <span>Share</span>
+          {/* <i className="share_icon"></i> */}
+          <WhatsappShareButton
+            title="Share Post Content"
+            separator=""
+            url="https://web.whatsapp.com/"
+          >
+            <WhatsappIcon size={25} round={true} />
+          </WhatsappShareButton>
+          <TwitterShareButton
+            title="Share Post Content"
+            url="https://twitter.com"
+          >
+            <TwitterIcon size={25} round={true} />
+          </TwitterShareButton>
+          <FacebookShareButton
+            quote="Share Post Content"
+            url="https://facebook.com"
+          >
+            <FacebookIcon size={25} round={true} />
+          </FacebookShareButton>
+          {/* <span>Share</span> */}
         </div>
       </div>
       <div className="comments_wrap">
@@ -263,6 +292,14 @@ export default function Post({ post, user, profile }) {
           postRef={postRef}
         />
       )}
+      {/* <InfiniteScroll
+        dataLength={post.length} //This is important field to render the next data
+        next={post}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+      >
+        {post}
+      </InfiniteScroll> */}
     </div>
   );
 }

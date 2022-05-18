@@ -10,6 +10,7 @@ import ActivateForm from "./ActivateForm";
 import "./style.css";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 export default function Activate() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import LoginInput from "../../components/inputs/loginInput";
 import * as Yup from "yup";
 import axios from "axios";
+
 export default function CodeVerification({
   code,
   setCode,

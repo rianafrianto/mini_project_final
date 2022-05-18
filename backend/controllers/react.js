@@ -2,6 +2,8 @@ const React = require("../models/React");
 const User = require("../models/User");
 const mongoose = require("mongoose");
 
+// --> Reaction Post <--- //
+
 exports.reactPost = async (req, res) => {
   try {
     const { postId, react } = req.body;

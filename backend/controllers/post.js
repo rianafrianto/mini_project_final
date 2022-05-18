@@ -1,6 +1,8 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
 
+// --> Create Post <--- //
+
 exports.createPost = async (req, res) => {
   try {
     const post = await new Post(req.body).save();

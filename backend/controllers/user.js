@@ -14,6 +14,8 @@ const { sendVerificationEmail, sendResetCode } = require("../helpers/mailer");
 const generateCode = require("../helpers/generateCode");
 const mongoose = require("mongoose");
 
+// --> User Register Validation <--- //
+
 exports.register = async (req, res) => {
   try {
     const {
@@ -95,6 +97,8 @@ exports.register = async (req, res) => {
   }
 };
 
+// --> Activate Account <--- //
+
 exports.activateAccount = async (req, res) => {
   try {
     const validUser = req.user.id;
@@ -122,6 +126,7 @@ exports.activateAccount = async (req, res) => {
   }
 };
 
+// --> Login <--- //
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -153,6 +158,7 @@ exports.login = async (req, res) => {
   }
 };
 
+// --> Send Verification <--- //
 exports.sendVerification = async (req, res) => {
   try {
     const id = req.user.id;
@@ -176,6 +182,8 @@ exports.sendVerification = async (req, res) => {
   }
 };
 
+// --> Find User Account For Reset Password <--- //
+
 exports.findUser = async (req, res) => {
   try {
     const { email } = req.body;
@@ -193,6 +201,8 @@ exports.findUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Reset Password <--- //
 
 exports.sendResetPasswordCode = async (req, res) => {
   try {
@@ -242,6 +252,8 @@ exports.changePassword = async (req, res) => {
   return res.status(200).json({ message: "ok" });
 };
 
+// --> Get Profile <--- //
+
 exports.getProfile = async (req, res) => {
   try {
     const { username } = req.params;
@@ -287,6 +299,7 @@ exports.getProfile = async (req, res) => {
   }
 };
 
+// --> Update Profile Picture <--- //
 exports.updateProfilePicture = async (req, res) => {
   try {
     const { url } = req.body;
@@ -300,6 +313,7 @@ exports.updateProfilePicture = async (req, res) => {
   }
 };
 
+// --> Update Cover Photo <--- //
 exports.updateCover = async (req, res) => {
   try {
     const { url } = req.body;
@@ -313,6 +327,7 @@ exports.updateCover = async (req, res) => {
   }
 };
 
+// --> Update Details Info <--- //
 exports.updateDetails = async (req, res) => {
   try {
     const { infos } = req.body;
@@ -331,6 +346,8 @@ exports.updateDetails = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Add Friend <--- //
 exports.addFriend = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -362,6 +379,8 @@ exports.addFriend = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Cancel Request Friend <--- //
 exports.cancelRequest = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -393,6 +412,8 @@ exports.cancelRequest = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Follow Friend <--- //
 exports.follow = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -420,6 +441,8 @@ exports.follow = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Unfollow Friend <--- //
 exports.unfollow = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -447,6 +470,8 @@ exports.unfollow = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Accept Request Friend <--- //
 exports.acceptRequest = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -475,6 +500,8 @@ exports.acceptRequest = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Unfriend <--- //
 exports.unfriend = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -510,6 +537,8 @@ exports.unfriend = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Delete Request Friend <--- //
 exports.deleteRequest = async (req, res) => {
   try {
     if (req.user.id !== req.params.id) {
@@ -540,6 +569,8 @@ exports.deleteRequest = async (req, res) => {
   }
 };
 
+// --> Find User Account <--- //
+
 exports.search = async (req, res) => {
   try {
     const searchTerm = req.params.searchTerm;
@@ -551,6 +582,8 @@ exports.search = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Add & Remove Search History  <--- //
 exports.addToSearchHistory = async (req, res) => {
   try {
     const { searchUser } = req.body;
@@ -604,6 +637,8 @@ exports.removeFromSearch = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// --> Information friend Info <--- //
 exports.getFriendsPageInfos = async (req, res) => {
   try {
     const user = await User.findById(req.user.id)

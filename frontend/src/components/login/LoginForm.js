@@ -16,6 +16,7 @@ const loginInfos = {
   email: "",
   password: "",
 };
+
 export default function LoginForm({ setVisible }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -71,6 +72,8 @@ export default function LoginForm({ setVisible }) {
           Metasocial helps you connect and share with the people in your life.
         </span>
       </div>
+
+      <div></div>
       <div className="login_2">
         <div className="login_2_wrap">
           <Formik
@@ -89,7 +92,7 @@ export default function LoginForm({ setVisible }) {
                 <LoginInput
                   type="text"
                   name="email"
-                  placeholder="Email address or phone number"
+                  placeholder="Email address"
                   onChange={handleLoginChange}
                 />
                 <div style={{ position: "relative" }}>
@@ -103,7 +106,7 @@ export default function LoginForm({ setVisible }) {
                   <span
                     className="eye"
                     onClick={handleToggle}
-                    style={{ position: "absolute", top: "10px", right: "15px" }}
+                    style={{ position: "absolute", top: "12px", right: "30px" }}
                   >
                     <Icon icon={icon} size={20} />
                   </span>
