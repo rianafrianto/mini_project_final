@@ -18,17 +18,7 @@ const mongoose = require("mongoose");
 
 exports.register = async (req, res) => {
   try {
-    const {
-      first_name,
-      last_name,
-      email,
-      password,
-      username,
-      bYear,
-      bMonth,
-      bDay,
-      gender,
-    } = req.body;
+    const { first_name, last_name, email, password, username } = req.body;
 
     if (!validateEmail(email)) {
       return res.status(400).json({
@@ -69,10 +59,6 @@ exports.register = async (req, res) => {
       email,
       password: cryptedPassword,
       username: newUsername,
-      bYear,
-      bMonth,
-      bDay,
-      gender,
     }).save();
     const emailVerificationToken = generateToken(
       { id: user._id.toString() },

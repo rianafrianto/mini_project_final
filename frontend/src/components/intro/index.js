@@ -18,11 +18,6 @@ export default function Intro({ detailss, visitor, setOthername }) {
     job: details?.job ? details.job : "",
     workplace: details?.workplace ? details.workplace : "",
     highSchool: details?.highSchool ? details.highSchool : "",
-    college: details?.college ? details.college : "",
-    currentCity: details?.currentCity ? details.currentCity : "",
-    hometown: details?.hometown ? details.hometown : "",
-    relationship: details?.relationship ? details.relationship : "",
-    instagram: details?.instagram ? details.instagram : "",
   };
   const [infos, setInfos] = useState(initial);
   const [showBio, setShowBio] = useState(false);
@@ -56,7 +51,7 @@ export default function Intro({ detailss, visitor, setOthername }) {
   };
   return (
     <div className="profile_card">
-      <div className="profile_card_header">Intro</div>
+      <div className="profile_card_header">Bio</div>
       {details?.bio && !showBio && (
         <div className="info_col">
           <span className="info_text">{details?.bio}</span>
@@ -154,7 +149,7 @@ export default function Intro({ detailss, visitor, setOthername }) {
           className="gray_btn hover1 w100"
           onClick={() => setVisible(true)}
         >
-          Edit Details
+          Edit Profile
         </button>
       )}
       {visible && !visitor && (

@@ -184,7 +184,6 @@ export default function Post({ post, user, profile }) {
         </div>
         <div className="to_right">
           <div className="comments_count">{comments.length} comments</div>
-          {/* <div className="share_count">0 share</div> */}
         </div>
       </div>
       <div className="post_actions">
@@ -236,25 +235,23 @@ export default function Post({ post, user, profile }) {
         <div className="post_action hover1">
           {/* <i className="share_icon"></i> */}
           <WhatsappShareButton
-            title="Share Post Content"
-            separator=""
-            url="https://web.whatsapp.com/"
+            title="Share Post Content From Metasocial"
+            url={"www.example.com"}
           >
             <WhatsappIcon size={25} round={true} />
           </WhatsappShareButton>
           <TwitterShareButton
-            title="Share Post Content"
-            url="https://twitter.com"
+            title="Share Post Content From Metasocial"
+            url={"www.example.com"}
           >
             <TwitterIcon size={25} round={true} />
           </TwitterShareButton>
           <FacebookShareButton
-            quote="Share Post Content"
-            url="https://facebook.com"
+            quote="Share Post Content From Metasocial"
+            url={"www.example.com"}
           >
             <FacebookIcon size={25} round={true} />
           </FacebookShareButton>
-          {/* <span>Share</span> */}
         </div>
       </div>
       <div className="comments_wrap">

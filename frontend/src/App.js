@@ -38,6 +38,7 @@ function App() {
           },
         }
       );
+
       dispatch({
         type: "POSTS_SUCCESS",
         payload: data,
@@ -45,7 +46,7 @@ function App() {
     } catch (error) {
       dispatch({
         type: "POSTS_ERROR",
-        payload: error.response.data.message,
+        payload: error.response?.data?.message,
       });
     }
   };
@@ -86,6 +87,30 @@ function App() {
             path="/friends/:type"
             element={
               <Friends setVisible={setVisible} getAllPosts={getAllPosts} />
+            }
+            exact
+          />
+          <Route
+            path="/"
+            element={
+              <Home
+                setVisible={setVisible}
+                posts={posts}
+                loading={loading}
+                getAllPosts={getAllPosts}
+              />
+            }
+            exact
+          />
+          <Route
+            path="/"
+            element={
+              <Home
+                setVisible={setVisible}
+                posts={posts}
+                loading={loading}
+                getAllPosts={getAllPosts}
+              />
             }
             exact
           />

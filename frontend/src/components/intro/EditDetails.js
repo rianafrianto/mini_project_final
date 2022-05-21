@@ -17,36 +17,35 @@ export default function EditDetails({
           <div className="small_circle" onClick={() => setVisible(false)}>
             <i className="exit_icon"></i>
           </div>
-          <span>Edit Details</span>
+          <span>Edit Profile</span>
         </div>
         <div className="details_wrapper scrollbar">
           <div className="details_col">
-            <span>Customize Your Intro</span>
-            <span>Details you select will be public</span>
+            <span>Customize Your Profile</span>
           </div>
-          <div className="details_header">Other Name</div>
+          <div className="details_header">Full Name</div>
           <Detail
             value={details?.otherName}
             img="studies"
-            placeholder="Add other name"
-            name="otherName"
-            text="other Name"
+            placeholder="Edit Full Name"
+            name="fullName"
+            text="Full Name"
             handleChange={handleChange}
             updateDetails={updateDetails}
             infos={infos}
           />
-          <div className="details_header">Work</div>
+          <div className="details_header">User Name</div>
           <Detail
             value={details?.job}
-            img="job"
-            placeholder="Add job title"
-            name="job"
-            text="a job"
+            img="username"
+            placeholder="Username"
+            name="username"
+            text="username"
             handleChange={handleChange}
             updateDetails={updateDetails}
             infos={infos}
           />
-          <Detail
+          {/* <Detail
             value={details?.workplace}
             img="job"
             placeholder="Add a workplace"
@@ -55,8 +54,8 @@ export default function EditDetails({
             handleChange={handleChange}
             updateDetails={updateDetails}
             infos={infos}
-          />
-          <div className="details_header">Education</div>
+          /> */}
+          {/* <div className="details_header">Education</div>
           <Detail
             value={details?.highSchool}
             img="studies"
@@ -110,8 +109,8 @@ export default function EditDetails({
             updateDetails={updateDetails}
             infos={infos}
             rel
-          />
-          <div className="details_header">Instagram</div>
+          /> */}
+          {/* <div className="details_header">Instagram</div>
           <Detail
             value={details?.instagram}
             img="home"
@@ -121,7 +120,7 @@ export default function EditDetails({
             handleChange={handleChange}
             updateDetails={updateDetails}
             infos={infos}
-          />
+          /> */}
         </div>
       </div>
     </div>

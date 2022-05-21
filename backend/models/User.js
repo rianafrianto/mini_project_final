@@ -43,26 +43,7 @@ const userSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
-    gender: {
-      type: String,
-      required: [true, "gender is required"],
-      trim: true,
-    },
-    bYear: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
-    bMonth: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
-    bDay: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
+
     verified: {
       type: Boolean,
       default: false,

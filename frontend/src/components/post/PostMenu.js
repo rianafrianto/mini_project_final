@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import MenuItem from "./MenuItem";
 import useOnClickOutside from "../../helpers/clickOutside";
-import { deletePost, savePost } from "../../functions/post";
+import { deletePost, savePost, editPost } from "../../functions/post";
 import { saveAs } from "file-saver";
 
 export default function PostMenu({
@@ -18,6 +18,7 @@ export default function PostMenu({
 }) {
   const [test, setTest] = useState(postUserId === userId ? true : false);
   const menu = useRef(null);
+  const [editPost, setEditPost] = useState([]);
   useOnClickOutside(menu, () => setShowMenu(false));
   const saveHandler = async () => {
     savePost(postId, token);
@@ -38,6 +39,10 @@ export default function PostMenu({
       postRef.current.remove();
     }
   };
+  const editHandler = async () => {
+    console.log(postId);
+  };
+
   return (
     <ul className="post_menu" ref={menu}>
       {test && <MenuItem icon="pin_icon" title="Pin Post" />}
@@ -57,7 +62,13 @@ export default function PostMenu({
         )}
       </div>
       <div className="line"></div>
-      {test && <MenuItem icon="edit_icon" title="Edit Post" />}
+      {test && (
+        <div onClick={() => editHandler()}>
+          {" "}
+          <MenuItem icon="edit_icon" title="Edit Post" />{" "}
+        </div>
+      )}
+      <div onClick={() => editHandler()}></div>
 
       {imagesLength && (
         <div onClick={() => downloadImages()}>

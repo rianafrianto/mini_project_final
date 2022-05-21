@@ -25,7 +25,7 @@ export default function Detail({
         ) : (
           <>
             <i className="rounded_plus_icon"></i>
-            <span className="underline">Add {text}</span>
+            <span className="underline">Update {text}</span>
           </>
         )}
       </div>

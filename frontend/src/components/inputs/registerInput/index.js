@@ -22,7 +22,10 @@ export default function RegisterInput({ placeholder, bottom, ...props }) {
           width: `${
             view1 && (field.name === "first_name" || field.name === "last_name")
               ? "100%"
-              : view1 && (field.name === "email" || field.name === "password")
+              : view1 &&
+                (field.name === "email" ||
+                  field.name === "password" ||
+                  field.name === "confirmationPassword")
               ? "370px"
               : "300px"
           }`,

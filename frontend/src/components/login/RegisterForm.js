@@ -2,8 +2,7 @@ import { Form, Formik } from "formik";
 import { useState } from "react";
 import RegisterInput from "../inputs/registerInput";
 import * as Yup from "yup";
-import DateOfBirthSelect from "./DateOfBirthSelect";
-import GenderSelect from "./GenderSelect";
+
 import DotLoader from "react-spinners/DotLoader";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -21,33 +20,17 @@ export default function RegisterForm({ setVisible }) {
     last_name: "",
     email: "",
     password: "",
-    bYear: new Date().getFullYear(),
-    bMonth: new Date().getMonth() + 1,
-    bDay: new Date().getDate(),
-    gender: "",
+    confirmationPassword: "",
   };
   const [user, setUser] = useState(userInfos);
-  const {
-    first_name,
-    last_name,
-    email,
-    password,
-    bYear,
-    bMonth,
-    bDay,
-    gender,
-  } = user;
-  const yearTemp = new Date().getFullYear();
+  const { first_name, last_name, email, password, confirmationPassword } = user;
+
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
-  const years = Array.from(new Array(108), (val, index) => yearTemp - index);
-  const months = Array.from(new Array(12), (val, index) => 1 + index);
-  const getDays = () => {
-    return new Date(bYear, bMonth, 0).getDate();
-  };
-  const days = Array.from(new Array(getDays()), (val, index) => 1 + index);
+
+  // Validation Register
   const registerValidation = Yup.object({
     first_name: Yup.string()
       .required("What's your First name ?")
@@ -66,14 +49,20 @@ export default function RegisterForm({ setVisible }) {
       .email("Enter a valid email address."),
     password: Yup.string()
       .required(
-        "Enter a combination of at least 8 numbers,letters and punctuation marks (such as ! and &)."
+        "Enter a combination of at least 8 characters including an uppercase letter, a lowercase letter, a symbol, and a number"
       )
       .min(8, "Password must be atleast 8 characters.")
-      .max(36, "Password can't be more than 36 characters"),
+      .max(36, "Password can't be more than 36 characters")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Weak Password"
+      ),
+    confirmationPassword: Yup.string()
+      .required("This field is required.")
+      .oneOf([Yup.ref("password"), null], "Password don't match"),
   });
-  const [dateError, setDateError] = useState("");
-  const [genderError, setGenderError] = useState("");
 
+  const [dateError, setDateError] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
@@ -87,10 +76,6 @@ export default function RegisterForm({ setVisible }) {
           last_name,
           email,
           password,
-          bYear,
-          bMonth,
-          bDay,
-          gender,
         }
       );
       setError("");
@@ -107,15 +92,26 @@ export default function RegisterForm({ setVisible }) {
       setError(error.response.data.message);
     }
   };
-  const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(eyeOff);
-  const handleToggle = () => {
-    if (type === "password") {
-      setIcon(eye);
-      setType("text");
+  const [type1, setType1] = useState("password");
+  const [type2, setType2] = useState("password");
+  const [icon1, setIcon1] = useState(eyeOff);
+  const [icon2, setIcon2] = useState(eyeOff);
+  const handleToggle1 = () => {
+    if (type1 === "password") {
+      setIcon1(eye);
+      setType1("text");
     } else {
-      setIcon(eyeOff);
-      setType("password");
+      setIcon1(eyeOff);
+      setType1("password");
+    }
+  };
+  const handleToggle2 = () => {
+    if (type2 === "password") {
+      setIcon2(eye);
+      setType2("text");
+    } else {
+      setIcon2(eyeOff);
+      setType2("password");
     }
   };
   return (
@@ -133,115 +129,90 @@ export default function RegisterForm({ setVisible }) {
             last_name,
             email,
             password,
-            bYear,
-            bMonth,
-            bDay,
-            gender,
+            confirmationPassword,
           }}
           validationSchema={registerValidation}
           onSubmit={() => {
-            let current_date = new Date();
-            let picked_date = new Date(bYear, bMonth - 1, bDay);
-            let atleast14 = new Date(1970 + 14, 0, 1);
-            let noMoreThan70 = new Date(1970 + 70, 0, 1);
-            if (current_date - picked_date < atleast14) {
-              setDateError(
-                "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
-              );
-            } else if (current_date - picked_date > noMoreThan70) {
-              setDateError(
-                "it looks like you(ve enetered the wrong info.Please make sure that you use your real date of birth."
-              );
-            } else if (gender === "") {
-              setDateError("");
-              setGenderError(
-                "Please choose a gender. You can change who can see this later."
-              );
-            } else {
-              setDateError("");
-              setGenderError("");
-              registerSubmit();
-            }
+            registerSubmit();
           }}
         >
-          {(formik) => (
-            <Form className="register_form">
-              <div className="reg_line">
-                <RegisterInput
-                  type="text"
-                  placeholder="First name"
-                  name="first_name"
-                  onChange={handleRegisterChange}
-                />
-                <RegisterInput
-                  type="text"
-                  placeholder="Last name"
-                  name="last_name"
-                  onChange={handleRegisterChange}
-                />
-              </div>
-              <div className="reg_line">
-                <RegisterInput
-                  type="text"
-                  placeholder="Email address"
-                  name="email"
-                  onChange={handleRegisterChange}
-                />
-              </div>
-              <div className="reg_line" style={{ position: "relative" }}>
-                <RegisterInput
-                  type={type}
-                  placeholder="New password"
-                  name="password"
-                  onChange={handleRegisterChange}
-                />
-                <span
-                  className="eye"
-                  onClick={handleToggle}
-                  style={{ position: "absolute", top: "20px", right: "30px" }}
-                >
-                  <Icon icon={icon} size={20} />
-                </span>
-              </div>
-              <div className="reg_col">
-                <div className="reg_line_header">
-                  Date of birth <i className="info_icon"></i>
+          {({ isValid }) => {
+            return (
+              <Form className="register_form">
+                <div className="reg_line">
+                  <RegisterInput
+                    type="text"
+                    placeholder="First name"
+                    name="first_name"
+                    onChange={handleRegisterChange}
+                  />
+                  <RegisterInput
+                    type="text"
+                    placeholder="Last name"
+                    name="last_name"
+                    onChange={handleRegisterChange}
+                  />
                 </div>
-                <DateOfBirthSelect
-                  bDay={bDay}
-                  bMonth={bMonth}
-                  bYear={bYear}
-                  days={days}
-                  months={months}
-                  years={years}
-                  handleRegisterChange={handleRegisterChange}
-                  dateError={dateError}
-                />
-              </div>
-              <div className="reg_col">
-                <div className="reg_line_header">
-                  Gender <i className="info_icon"></i>
+                <div className="reg_line">
+                  <RegisterInput
+                    type="text"
+                    placeholder="Email address"
+                    name="email"
+                    onChange={handleRegisterChange}
+                  />
                 </div>
+                <div className="reg_line" style={{ position: "relative" }}>
+                  <RegisterInput
+                    type={type1}
+                    placeholder="New password"
+                    name="password"
+                    onChange={handleRegisterChange}
+                  />
 
-                <GenderSelect
-                  handleRegisterChange={handleRegisterChange}
-                  genderError={genderError}
-                />
-              </div>
-              <div className="reg_infos">
-                By clicking Sign Up, you agree to our{" "}
-                <span>Terms, Data Policy &nbsp;</span>
-                and <span>Cookie Policy.</span> You may receive SMS
-                notifications from us and can opt out at any time.
-              </div>
-              <div className="reg_btn_wrapper">
-                <button className="blue_btn open_signup">Sign Up</button>
-              </div>
-              <DotLoader color="#1876f2" loading={loading} size={30} />
-              {error && <div className="error_text">{error}</div>}
-              {success && <div className="success_text">{success}</div>}
-            </Form>
-          )}
+                  <span
+                    className="eye"
+                    onClick={handleToggle1}
+                    style={{ position: "absolute", top: "20px", right: "30px" }}
+                  >
+                    <Icon icon={icon1} size={20} />
+                  </span>
+                </div>
+                <div className="reg_line" style={{ position: "relative" }}>
+                  <RegisterInput
+                    type={type2}
+                    placeholder="Confirmation password"
+                    name="confirmationPassword"
+                    onChange={handleRegisterChange}
+                  />
+                  <span
+                    className="eye"
+                    onClick={handleToggle2}
+                    style={{ position: "absolute", top: "20px", right: "30px" }}
+                  >
+                    <Icon icon={icon2} size={20} />
+                  </span>
+                </div>
+                <div className="reg_infos">
+                  By clicking Sign Up, you agree to our{" "}
+                  <span>Terms, Data Policy &nbsp;</span>
+                  and <span>Cookie Policy.</span> You may receive SMS
+                  notifications from us and can opt out at any time.
+                </div>
+                <div className="reg_btn_wrapper">
+                  <button
+                    type="submit"
+                    disabled={!isValid}
+                    className="blue_btn open_signup"
+                  >
+                    {isValid ? "Sign Up" : "Sign Up"}
+                  </button>
+                </div>
+                <DotLoader color="#1876f2" loading={loading} size={30} />
+                {error && <div className="error_text">{error}</div>}
+                {success && <div className="success_text">{success}</div>}
+              </Form>
+            );
+          }}
         </Formik>
       </div>
     </div>

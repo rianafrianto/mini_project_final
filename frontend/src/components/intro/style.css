@@ -55,8 +55,8 @@
   filter: invert(40%);
 }
 .infosBox {
-  height: 650px;
-  width: 800px !important;
+  height: 400px;
+  width: 500px !important;
 }
 .details_wrapper {
   padding: 1rem;

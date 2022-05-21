@@ -1,13 +1,11 @@
 import { useRef, useState } from "react";
 import "./style.css";
 import UpdateProfilePicture from "./UpdateProfilePicture";
-// import useOnClickOutside from "../../helpers/clickOutside";
-// import { photosReducer } from "../../functions/reducers";
 import { useSelector } from "react-redux";
 export default function ProfilePicture({ username, setShow, pRef, photos }) {
   const popup = useRef(null);
   const { user } = useSelector((state) => ({ ...state }));
-  //useOnClickOutside(popup, () => setShow(false));
+
   const refInput = useRef(null);
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
@@ -58,10 +56,6 @@ export default function ProfilePicture({ username, setShow, pRef, photos }) {
               <i className="plus_icon filter_blue"></i>
               Upload photo
             </button>
-            {/* <button className="gray_btn">
-              <i className="frame_icon"></i>
-              Add frame
-            </button> */}
           </div>
         </div>
         {error && (
@@ -88,21 +82,6 @@ export default function ProfilePicture({ username, setShow, pRef, photos }) {
                 />
               ))}
           </div>
-          {/* <h4>other pictures</h4>
-          <div className="old_pictures">
-            {photos
-              .filter(
-                (img) => img.folder !== `${user.username}/profile_pictures`
-              )
-              .map((photo) => (
-                <img
-                  src={photo.secure_url}
-                  key={photo.public_id}
-                  alt=""
-                  onClick={() => setImage(photo.secure_url)}
-                />
-              ))}
-          </div> */}
         </div>
       </div>
       {image && (
